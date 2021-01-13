@@ -49,7 +49,7 @@ function Register(props) {
       .post(`/api/add-user/`, user)
       .then(() => {
         alert('Registration successfully !');
-        window.location.href = 'http://localhost:3000/';
+        window.location.href = 'http://localhost:3000/prehome';
       })
       .catch((err) => {
         if (err.response.status === 409) {
