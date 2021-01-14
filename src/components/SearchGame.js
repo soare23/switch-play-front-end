@@ -6,26 +6,20 @@ export default function SearchGame() {
     const [display, setDisplay] = useState(true);
     const [containerDisplay, setContainerDisplay]= useState(false);
     const [options, setOptions] = useState([]);
-    const [search, setSearch]= useState("");
-    const [title, setTitle]=useState("");
     const[gamesList,setGames] =useState([]);
 
     
     function handleSearchInput(e){
-        const search = e.target.value;
-        setSearch(search);  
-        axios.get(`https://api.rawg.io/api/games?key=a0200251f0824f9291c541b963f86c46&page_size=10&search=${search}`).then(res=>{
+        const search_result = e.target.value;
+        axios.get(`https://api.rawg.io/api/games?key=a0200251f0824f9291c541b963f86c46&page_size=10&search=${search_result}`).then(res=>{
             const data = res.data.results;
             setOptions(data);
             setDisplay(true)
             setContainerDisplay(false);
-            console.log(options.length)
         })
-        
     }
     return (
         <div>
-            
             <div className="d-flex justify-content-center">
                 <h1 style={{marginTop: '15px', fontFamily: "'Source Serif Pro', serif", fontSize: '30px'}}>Search for a game</h1>
             </div>
@@ -40,11 +34,10 @@ export default function SearchGame() {
                     {options.map(res=>{
                         return <h6 style={{"cursor":"pointer"}} onClick={e =>{
                             e.preventDefault();
-                            const title = res.name;
-                            setTitle(title)
+                            const title_result = res.name;
                             setDisplay(false);
                             setContainerDisplay(true);
-                            axios.get(`/api/get-offer/${title}`).then(result=>{
+                            axios.get(`/api/get-offer/${title_result}`).then(result=>{
                                 let games = result.data;
                                 setGames(games)
                             })
@@ -70,10 +63,7 @@ export default function SearchGame() {
             </div>
             :
             <h1>Sorry we don't have this game</h1>}
-            </div>
-
-            
-            
+            </div>  
         </div>
     )
 }
