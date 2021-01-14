@@ -1,13 +1,26 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import '../UserProfile.css';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faPhone,
+  faMapMarkerAlt,
+  faEnvelope,
+} from '@fortawesome/free-solid-svg-icons';
+import ActiveOffers from './ActiveOffers';
+import Modal from 'react-modal';
 
 function UserProfile() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    activeOffers: [],
+  });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  library.add(faPhone, faMapMarkerAlt, faEnvelope);
 
   //   // ID will be found in session when session will be implemented
-  let id = 'a8867f95-e59c-440e-be8d-84b9d4784104';
+  let id = '27a7e0aa-4105-4215-ad67-e1682b669ac8';
 
   useEffect(() => {
     fetchUserData(id);
@@ -20,11 +33,30 @@ function UserProfile() {
     });
   }
 
+  const setModalIsOpenToTrue = () => {
+    setModalIsOpen(true);
+  };
+
+  const setModalIsOpenToFalse = () => {
+    setModalIsOpen(false);
+  };
+
+  const modalCustomStyle = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
   return (
     <div>
-      <div className="container">
+      <div className="container main-container">
         <div className="row">
-          <div className="col-lg-8 col-md-8  col-xs-12">
+          <div className="col">
             <div className="panel panel-default plain profile-panel">
               <div className="panel-heading white-content p-left p-right"></div>
               <div className="panel-body">
@@ -39,22 +71,36 @@ function UserProfile() {
                   <div className="container user-profile-container">
                     <div className="user-name">
                       {user.firstName} {user.lastName}
-                      <span className="label label-success">admin</span>
                     </div>
                     <div className="user-information">Short Description</div>
                     <div className="profile-stats-info">
-                      <a href="#" title="Views">
-                        <i className="glyphicon glyphicon-eye-open"> </i>
-                        <strong>2000</strong>
-                      </a>
-                      <a href="#" title="Comments">
-                        <i className="glyphicon glyphicon-comment"> </i>
-                        <strong>120</strong>
-                      </a>
-                      <a href="#" title="Likes">
-                        <i className="glyphicon glyphicon-thumbs-up"> </i>
-                        <strong>60</strong>
-                      </a>
+                      <div>
+                        <a
+                          onClick={setModalIsOpenToTrue}
+                          style={{ cursor: 'pointer' }}
+                        >
+                          Active Offers:{' '}
+                          <strong>{user.activeOffers.length}</strong>
+                        </a>
+                        <Modal isOpen={modalIsOpen} style={modalCustomStyle}>
+                          <button onClick={setModalIsOpenToFalse}>x</button>
+                          <ActiveOffers
+                            offers={user.activeOffers}
+                          ></ActiveOffers>
+                        </Modal>
+                      </div>
+                      <div>
+                        <a href="#" title="Comments">
+                          Rating:
+                          <strong>10</strong>
+                        </a>
+                      </div>
+                      <div>
+                        <a href="#" title="Likes">
+                          Completed Deals:
+                          <strong>4</strong>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -62,20 +108,26 @@ function UserProfile() {
               <div className="panel-footer white-content">
                 <div className="user-contact">
                   <ul className="profile-info">
-                    <li>
-                      <i class="fas fa-phone"></i> {user.phone}
-                    </li>
-                    <li>
-                      <i className="glyphicon glyphicon-map-marker"></i>{' '}
-                      {user.town},{user.country}
-                    </li>
-                    <li>
-                      <i className="glyphicon glyphicon-envelope"></i>{' '}
-                      {user.email}
-                    </li>
-                    <li>
-                      <i className="glyphicon glyphicon-edit"></i> Gamer
-                    </li>
+                    <div className="li-container">
+                      <li>
+                        <FontAwesomeIcon icon="phone"></FontAwesomeIcon>
+                        <div className="li-info">{user.phone}</div>
+                      </li>
+                    </div>
+                    <div className="li-container">
+                      <li>
+                        <FontAwesomeIcon icon="map-marker-alt"></FontAwesomeIcon>
+                        <div className="li-info">
+                          {user.town},{user.country}
+                        </div>
+                      </li>
+                    </div>
+                    <div className="li-container">
+                      <li>
+                        <FontAwesomeIcon icon="envelope"></FontAwesomeIcon>
+                        <div className="li-info">{user.email}</div>
+                      </li>
+                    </div>
                   </ul>
                 </div>
               </div>
