@@ -7,7 +7,7 @@ function HomePage() {
       <div className="card-container">
         <div className="card">
           <Link to="/add-game">
-            <button>Add game</button>
+            <button>Switch a game</button>
           </Link>
         </div>
 
