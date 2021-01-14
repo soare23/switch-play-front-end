@@ -4,7 +4,7 @@ function Navbar(props) {
   return (
     <div style={{ backgroundColor: '#e8f2f6' }}>
       <div className="nav justify-content-start">
-        <a className="nav-link" href="/">
+        <a className="nav-link" href="/homepage">
           Home
         </a>
         <a className="nav-link" href={'/register'}>

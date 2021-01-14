@@ -17,7 +17,7 @@ function Login() {
         console.log(response);
         if (response.status === 200) {
           setLoggedIn(true);
-          window.location.href = 'http://localhost:3000/prehome';
+          window.location.href = 'http://localhost:3000/homepage';
         }
       })
       .catch((err) => {
