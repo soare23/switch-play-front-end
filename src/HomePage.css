@@ -1,0 +1,24 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  height: 500px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  border-radius: 10px;
+}
+
+.card-add {
+  background-image: url(/src/images/add-game.png);
+}
+
+.card-search {
+  background-image: url(/src/images/search-game.png);
+}
