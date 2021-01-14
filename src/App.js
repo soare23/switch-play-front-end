@@ -1,7 +1,7 @@
 import React from 'react';
 import Register from './components/Register';
 import Login from './components/Login';
-import PreHomePage from './components/PreHomePage';
+import HomePage from './components/HomePage';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import './App.css';
@@ -14,7 +14,7 @@ function App() {
       <Router>
         <Route exact path={'/register'} component={Register} />
         <Route exact path={'/login'} component={Login} />
-        <Route exact path={'/prehome'} component={PreHomePage} />
+        <Route exact path={'/homepage'} component={HomePage} />
       </Router>
     </div>
   );
