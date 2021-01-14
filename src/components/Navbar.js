@@ -13,6 +13,7 @@ function Navbar(props) {
         <a className="nav-link" href={'/login'}>
           Login
         </a>
+        <div style={{ flex: 1 }}></div>
         <div>
           <a className="nav-link" href={'/profile'}>
             Profile
