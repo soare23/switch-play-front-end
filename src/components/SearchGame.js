@@ -11,7 +11,8 @@ export default function SearchGame() {
 
     
     function handleSearchInput(e){
-        setSearch(e.target.value);  
+        const search = e.target.value;
+        setSearch(search);  
         axios.get(`https://api.rawg.io/api/games?key=a0200251f0824f9291c541b963f86c46&page_size=10&search=${search}`).then(res=>{
             const data = res.data.results;
             setOptions(data);
@@ -19,27 +20,54 @@ export default function SearchGame() {
         
     }
 
-    
 
     return (
         <div>
-            <form>
-                <input onChange={handleSearchInput}>
-                </input>
-                <button>Submit</button>
-            </form>
-            <div >
-                {display ? 
-                options.map(res=>{
+            
+            <div className="d-flex justify-content-center">
+                <h1 style={{marginTop: '15px', fontFamily: "'Source Serif Pro', serif", fontSize: '30px'}}>Search for a game</h1>
+            </div>
+            <div className="d-flex justify-content-center">
+                <form className="form-inline my-2 my-lg-0">
+                    <input className="form-control mr-sm-2" type="search" placeholder="Enter game name..." aria-label="Search" onChange={handleSearchInput}/>
+                </form>
+            </div>
+            <div>
+                {options.map(res=>{
                     return <h5 onClick={e =>{
                         e.preventDefault();
-                        setTitle(res.name);
-                        axios.get(`/api/get-offer/${title}`).then(res=>{
-                            setGames(res.data)
+                        const title = res.name;
+                        setTitle(title)
+                        axios.get(`/api/get-offer/${title}`).then(result=>{
+                            let games = result.data;
+                            setGames(games)
+                            console.log(games)
                         })
                     }}>{res.name}</h5>
-                }) : " false "}
+                })}
             </div>
+
+
+
+
+            <div className="d-flex justify-content-center">  
+                    {gamesList.map(selectedGame=>
+
+                    <div className="d-flex justify-content-center">
+                    <div className="card" style={{"width": "18rem", "marginTop" : "20px"}}>
+                        <img className="card-img-top" src={selectedGame.game.picture} alt="Card image cap"/>
+                            <div className="card-body">
+                                <h5 className="card-title">{selectedGame.game.title}</h5>
+                                <p className="card-text">Category : {selectedGame.game.category}</p>
+                                <p className="card-text">User : {selectedGame.user.firstName}</p>
+                                <p className="card-text">Rating : {selectedGame.game.rating}</p>
+        
+
+                            </div>
+                    </div>
+                </div>)}
+             </div>  
+            
         </div>
     )
 }
