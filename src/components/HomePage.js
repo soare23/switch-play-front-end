@@ -10,7 +10,7 @@ function HomePage() {
           <div className="card card-add"></div>
         </Link>
 
-        <Link to="/search">
+        <Link to="/search-game">
           <div className="card card-search"></div>
         </Link>
       </div>
