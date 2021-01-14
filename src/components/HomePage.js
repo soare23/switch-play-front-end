@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function PreHomePage() {
+function HomePage() {
   return (
     <div>
       <div className="card-container">
@@ -21,4 +21,4 @@ function PreHomePage() {
   );
 }
 
-export default PreHomePage;
+export default HomePage;
