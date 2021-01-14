@@ -1,21 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../HomePage.css';
 
 function HomePage() {
   return (
     <div>
       <div className="card-container">
-        <div className="card">
-          <Link to="/add-game">
-            <button>Add game</button>
-          </Link>
-        </div>
+        <Link to="/add-game">
+          <div className="card card-add"></div>
+        </Link>
 
-        <div className="card">
-          <Link to="/search">
-            <button>Search for a game</button>
-          </Link>
-        </div>
+        <Link to="/search">
+          <div className="card card-search"></div>
+        </Link>
       </div>
     </div>
   );
