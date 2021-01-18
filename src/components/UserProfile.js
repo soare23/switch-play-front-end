@@ -8,19 +8,34 @@ import {
   faPhone,
   faMapMarkerAlt,
   faEnvelope,
+  faDesktop,
+  faGamepad,
 } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 import ActiveOffers from './ActiveOffers';
 import Modal from 'react-modal';
+import EditableFields from './EditableFields';
 
 function UserProfile() {
+  library.add(faPhone, faMapMarkerAlt, faEnvelope, faDesktop, fab, faGamepad);
   const [user, setUser] = useState({
     activeOffers: [],
+    console: '',
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  library.add(faPhone, faMapMarkerAlt, faEnvelope);
+  const [inputIsEditable, setInputIsEditable] = useState(false);
+  const [updatedUserInformation, setUpdatedUserInformation] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    town: '',
+    country: '',
+    console: '',
+  });
 
   //   // ID will be found in session when session will be implemented
-  let id = '27a7e0aa-4105-4215-ad67-e1682b669ac8';
+  let id = 'eb144b65-bc52-4532-ad05-bb29b77ca903';
 
   useEffect(() => {
     fetchUserData(id);
@@ -52,6 +67,30 @@ function UserProfile() {
     },
   };
 
+  const setEditProfileToTrue = () => {
+    setUpdatedUserInformation(user);
+    setInputIsEditable(true);
+  };
+
+  const setEditProfileToFalse = () => {
+    setInputIsEditable(false);
+    axios
+      .put(`api/update-user/${id}`, updatedUserInformation)
+      .then((response) => {
+        if (response.status === 201) {
+          console.log('User updated succesfully');
+          window.location.href = 'http://localhost:3000/profile';
+        }
+      });
+  };
+
+  const updateUserProfile = (value, key) => {
+    setUpdatedUserInformation({
+      ...updatedUserInformation,
+      [key]: value,
+    });
+  };
+
   return (
     <div>
       <div className="container main-container">
@@ -70,8 +109,40 @@ function UserProfile() {
                   </div>
                   <div className="container user-profile-container">
                     <div className="user-name">
-                      {user.firstName} {user.lastName}
+                      <div className="user-name-container">
+                        <EditableFields
+                          inputName="firstName"
+                          userInfo={user.firstName}
+                          editable={inputIsEditable}
+                          updateField={updateUserProfile}
+                        ></EditableFields>
+                        <EditableFields
+                          inputName="lastName"
+                          userInfo={user.lastName}
+                          editable={inputIsEditable}
+                          updateField={updateUserProfile}
+                        ></EditableFields>
+
+                        <div>
+                          {inputIsEditable === false ? (
+                            <button
+                              onClick={setEditProfileToTrue}
+                              className="btn btn-light"
+                            >
+                              Edit Profile
+                            </button>
+                          ) : (
+                            <button
+                              onClick={setEditProfileToFalse}
+                              className="btn btn-success"
+                            >
+                              Save Profile
+                            </button>
+                          )}
+                        </div>
+                      </div>
                     </div>
+
                     <div className="user-information">Short Description</div>
                     <div className="profile-stats-info">
                       <div>
@@ -111,21 +182,52 @@ function UserProfile() {
                     <div className="li-container">
                       <li>
                         <FontAwesomeIcon icon="phone"></FontAwesomeIcon>
-                        <div className="li-info">{user.phone}</div>
+                        <EditableFields
+                          inputName="phone"
+                          userInfo={user.phone}
+                          editable={inputIsEditable}
+                          updateField={updateUserProfile}
+                        ></EditableFields>
                       </li>
                     </div>
                     <div className="li-container">
                       <li>
                         <FontAwesomeIcon icon="map-marker-alt"></FontAwesomeIcon>
-                        <div className="li-info">
-                          {user.town},{user.country}
-                        </div>
+                        <EditableFields
+                          inputName="town"
+                          userInfo={user.town}
+                          editable={inputIsEditable}
+                          updateField={updateUserProfile}
+                        ></EditableFields>
+                        ,
+                        <EditableFields
+                          inputName="country"
+                          userInfo={user.country}
+                          editable={inputIsEditable}
+                          updateField={updateUserProfile}
+                        ></EditableFields>
                       </li>
                     </div>
                     <div className="li-container">
                       <li>
                         <FontAwesomeIcon icon="envelope"></FontAwesomeIcon>
-                        <div className="li-info">{user.email}</div>
+                        <EditableFields
+                          inputName="email"
+                          userInfo={user.email}
+                          editable={inputIsEditable}
+                          updateField={updateUserProfile}
+                        ></EditableFields>
+                      </li>
+                    </div>
+                    <div className="li-container">
+                      <li>
+                        <FontAwesomeIcon icon="gamepad"></FontAwesomeIcon>
+                        <EditableFields
+                          inputName="console"
+                          userInfo={user.console}
+                          editable={inputIsEditable}
+                          updateField={updateUserProfile}
+                        ></EditableFields>
                       </li>
                     </div>
                   </ul>
