@@ -155,9 +155,22 @@
 
 .user-name-container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-name-container button {
+  margin-left: 10px;
 }
 
 input {
+  width: fit-content;
+  border-radius: 5px;
+  height: auto;
+  margin: 5px;
+}
+
+.dropdown-select {
   width: fit-content;
   border-radius: 5px;
   height: auto;
