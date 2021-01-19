@@ -24,6 +24,7 @@ function UserProfile() {
   });
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [inputIsEditable, setInputIsEditable] = useState(false);
+  const [consoleList, setConsoleList] = useState([]);
   const [updatedUserInformation, setUpdatedUserInformation] = useState({
     firstName: '',
     lastName: '',
@@ -35,11 +36,21 @@ function UserProfile() {
   });
 
   //   // ID will be found in session when session will be implemented
-  let id = 'eb144b65-bc52-4532-ad05-bb29b77ca903';
+  let id = 'f99e3a9e-31be-46bc-a0ba-8fa0e0735132';
 
   useEffect(() => {
     fetchUserData(id);
   }, [id]);
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://api.rawg.io/api/platforms?key=d124f7e507b7487ba9faa3cc51bfaabf`
+      )
+      .then((response) => {
+        setConsoleList(response.data.results);
+      });
+  }, [inputIsEditable]);
 
   function fetchUserData(id) {
     axios.get(`/api/get-user-by-id/${id}`).then((response) => {
@@ -127,7 +138,7 @@ function UserProfile() {
                           {inputIsEditable === false ? (
                             <button
                               onClick={setEditProfileToTrue}
-                              className="btn btn-light"
+                              className="btn btn-info"
                             >
                               Edit Profile
                             </button>
@@ -222,12 +233,28 @@ function UserProfile() {
                     <div className="li-container">
                       <li>
                         <FontAwesomeIcon icon="gamepad"></FontAwesomeIcon>
-                        <EditableFields
-                          inputName="console"
-                          userInfo={user.console}
-                          editable={inputIsEditable}
-                          updateField={updateUserProfile}
-                        ></EditableFields>
+                        {inputIsEditable ? (
+                          <select
+                            className="dropdown-select"
+                            required
+                            onChange={(e) => {
+                              updateUserProfile(e.target.value, 'console');
+                            }}
+                          >
+                            <option>{user.console}</option>
+                            {consoleList.map((console, index) => {
+                              return (
+                                <option key={index} value={console.name}>
+                                  {console.name}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        ) : (
+                          <div style={{ marginLeft: '10px' }}>
+                            {user.console}
+                          </div>
+                        )}
                       </li>
                     </div>
                   </ul>
