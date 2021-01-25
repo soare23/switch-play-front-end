@@ -14,9 +14,12 @@ function Login() {
     axios
       .post(`/api/check-if-user`, user)
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
           setLoggedIn(true);
+          localStorage.setItem("login", JSON.stringify({
+            login : true,
+            token : response.data.token
+          }))
           window.location.href = 'http://localhost:3000/homepage';
         }
       })
@@ -31,6 +34,8 @@ function Login() {
         }
       });
   }
+
+
 
   return (
     <div>
