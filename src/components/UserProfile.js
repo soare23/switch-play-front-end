@@ -25,6 +25,7 @@ function UserProfile() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [inputIsEditable, setInputIsEditable] = useState(false);
   const [consoleList, setConsoleList] = useState([]);
+  const [activeOffers, setActiveOffers] = useState([]);
   const [updatedUserInformation, setUpdatedUserInformation] = useState({
     firstName: '',
     lastName: '',
@@ -61,6 +62,10 @@ function UserProfile() {
 
   const setModalIsOpenToTrue = () => {
     setModalIsOpen(true);
+    axios.get(`/api/get-active-offers-by-user-id/${id}`).then((response) => {
+      console.log(response);
+      setActiveOffers(response);
+    });
   };
 
   const setModalIsOpenToFalse = () => {
@@ -161,14 +166,11 @@ function UserProfile() {
                           onClick={setModalIsOpenToTrue}
                           style={{ cursor: 'pointer' }}
                         >
-                          Active Offers:{' '}
-                          <strong>{user.activeOffers.length}</strong>
+                          Active Offers: <strong>{activeOffers.length}</strong>
                         </a>
                         <Modal isOpen={modalIsOpen} style={modalCustomStyle}>
                           <button onClick={setModalIsOpenToFalse}>x</button>
-                          <ActiveOffers
-                            offers={user.activeOffers}
-                          ></ActiveOffers>
+                          <ActiveOffers offers={activeOffers}></ActiveOffers>
                         </Modal>
                       </div>
                       <div>
