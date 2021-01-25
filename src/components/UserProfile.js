@@ -37,7 +37,7 @@ function UserProfile() {
   });
 
   //   // ID will be found in session when session will be implemented
-  let id = 'f99e3a9e-31be-46bc-a0ba-8fa0e0735132';
+  let id = 'a1912794-d361-471b-a851-92d565718277';
 
   useEffect(() => {
     fetchUserData(id);
@@ -53,6 +53,13 @@ function UserProfile() {
       });
   }, [inputIsEditable]);
 
+  useEffect(() => {
+    axios.get(`/api/get-active-offers-by-user-id/${id}`).then((response) => {
+      console.log(response.data);
+      setActiveOffers(response.data);
+    });
+  }, [])
+
   function fetchUserData(id) {
     axios.get(`/api/get-user-by-id/${id}`).then((response) => {
       console.log(response);
@@ -62,10 +69,6 @@ function UserProfile() {
 
   const setModalIsOpenToTrue = () => {
     setModalIsOpen(true);
-    axios.get(`/api/get-active-offers-by-user-id/${id}`).then((response) => {
-      console.log(response);
-      setActiveOffers(response);
-    });
   };
 
   const setModalIsOpenToFalse = () => {
