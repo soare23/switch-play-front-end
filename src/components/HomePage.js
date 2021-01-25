@@ -6,7 +6,7 @@ function HomePage() {
   return (
     <div>
 
-      <div>{localStorage.getItem("login")}</div>
+      <div>Welcome {localStorage.getItem("token")}</div>
       <div className="card-container">
         <Link to="/add-game">
           <div className="card card-add"></div>

@@ -16,10 +16,7 @@ function Login() {
       .then((response) => {
         if (response.status === 200) {
           setLoggedIn(true);
-          localStorage.setItem("login", JSON.stringify({
-            login : true,
-            token : response.data.token
-          }))
+          localStorage.setItem("token", response.data.token)
           window.location.href = 'http://localhost:3000/homepage';
         }
       })
