@@ -1,0 +1,29 @@
+body {
+  background-image: url(/src/images/main-background-3.png);
+}
+
+a {
+  font-weight: bold;
+  font-size: large;
+}
+
+.register-container {
+  margin-top: 250px;
+}
+
+.registration-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input {
+  text-align: center;
+  border-color: aliceblue;
+}
