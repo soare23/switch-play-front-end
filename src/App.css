@@ -31,6 +31,11 @@ a {
   align-items: center;
 }
 
+.dropdown-container {
+  width: 226px;
+  margin: auto;
+}
+
 .login-button-container {
   display: flex;
   justify-content: center;
