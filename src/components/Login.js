@@ -78,7 +78,7 @@ function Login() {
           {/*USER PASSWORD*/}
           <div>
             <input
-              type="text"
+              type="password"
               name="password"
               value={user.password}
               required

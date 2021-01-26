@@ -62,13 +62,22 @@ function UserProfile() {
   }, [inputIsEditable]);
 
   useEffect(() => {
-    axios.get(`/api/get-active-offers-by-user-id/${id}`).then((response) => {
+    axios.get(`/api/get-active-offers-by-user-id/${id}`, {
+      headers :{
+        "Authorization" : "Bearer " +  localStorage.getItem("token")
+      }
+    }).then((response) => {
       setActiveOffers(response.data);
     });
   }, [])
 
   function fetchUserData(id) {
-    axios.get(`/api/get-user-by-id/${id}`).then((response) => {
+
+    axios.get(`/api/get-user-by-id/${id}`, {
+      headers :{
+        "Authorization" : "Bearer " +  localStorage.getItem("token")
+      }
+    }).then((response) => {
       setUser(response.data);
     });
   }

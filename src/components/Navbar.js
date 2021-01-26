@@ -22,7 +22,7 @@ function Navbar(props) {
               Login
             </a>
         :
-            <a className="nav-link" href={'/logout'} onClick={Logout}>
+            <a className="nav-link" href={'/homepage'} onClick={Logout}>
               Logout
             </a>
         }
