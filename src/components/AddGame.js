@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
+import {UserContext} from "./UserContext";
 
 function AddGame(props) {
-  //TODO user id will be from the token in the future
-  const userId = 'b25cb075-b409-4f6d-a831-5ef78892590d';
+
+  const value = useContext(UserContext);
+  const userId = value.userId;
 
   const [searchedGameList, setSearchedGameList] = useState([]);
   const [offerToAdd, setOfferToAdd] = useState({
