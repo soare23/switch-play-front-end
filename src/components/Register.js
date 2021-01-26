@@ -106,48 +106,50 @@ function Register(props) {
                 ''
               )}
               {/*USER FAVOURITE CATEGORY*/}
-              <div className="input-group mb-3" style={{ marginTop: '15px' }}>
-                <select
-                  className="custom-select"
-                  id="inputGroupSelect01"
-                  required
-                  onChange={(e) => {
-                    const s = { ...user };
-                    s.favouriteCategories[0].name = e.target.value;
-                    setUser(s);
-                  }}
-                >
-                  <option defaultValue="">Select favourite genre...</option>
-                  {categoryList.map((genre, index) => {
-                    return (
-                      <option key={index} value={genre.name}>
-                        {genre.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-              {/*USER FAVOURITE CONSOLE*/}
-              <div className="input-group mb-3" style={{ marginTop: '15px' }}>
-                <select
-                  className="custom-select"
-                  id="inputGroupSelect01"
-                  required
-                  onChange={(e) => {
-                    const s = { ...user };
-                    s.console = e.target.value;
-                    setUser(s);
-                  }}
-                >
-                  <option defaultValue="">Select favourite console...</option>
-                  {consoleList.map((console, index) => {
-                    return (
-                      <option key={index} value={console.name}>
-                        {console.name}
-                      </option>
-                    );
-                  })}
-                </select>
+              <div className="dropdown-container">
+                <div className="input-group mb-3" style={{ marginTop: '15px' }}>
+                  <select
+                    className="custom-select"
+                    id="inputGroupSelect01"
+                    required
+                    onChange={(e) => {
+                      const s = { ...user };
+                      s.favouriteCategories[0].name = e.target.value;
+                      setUser(s);
+                    }}
+                  >
+                    <option defaultValue="">Select favourite genre...</option>
+                    {categoryList.map((genre, index) => {
+                      return (
+                        <option key={index} value={genre.name}>
+                          {genre.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                {/*USER FAVOURITE CONSOLE*/}
+                <div className="input-group mb-3" style={{ marginTop: '15px' }}>
+                  <select
+                    className="custom-select"
+                    id="inputGroupSelect01"
+                    required
+                    onChange={(e) => {
+                      const s = { ...user };
+                      s.console = e.target.value;
+                      setUser(s);
+                    }}
+                  >
+                    <option defaultValue="">Select favourite console...</option>
+                    {consoleList.map((console, index) => {
+                      return (
+                        <option key={index} value={console.name}>
+                          {console.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
               </div>
               {/*USER FIRST NAME*/}
               <div>
