@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import React from 'react';
+import React, {useContext} from 'react';
 import { useState, useEffect } from 'react';
 import '../UserProfile.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -15,8 +15,12 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import ActiveOffers from './ActiveOffers';
 import Modal from 'react-modal';
 import EditableFields from './EditableFields';
+import {UserContext} from "./UserContext";
 
 function UserProfile() {
+
+  const value = useContext(UserContext);
+
   library.add(faPhone, faMapMarkerAlt, faEnvelope, faDesktop, fab, faGamepad);
   const [user, setUser] = useState({
     activeOffers: [],
@@ -37,7 +41,11 @@ function UserProfile() {
   });
 
   //   // ID will be found in session when session will be implemented
-  let id = 'b25cb075-b409-4f6d-a831-5ef78892590d';
+  let id = value.userId;
+
+
+
+
 
   useEffect(() => {
     fetchUserData(id);
@@ -55,14 +63,12 @@ function UserProfile() {
 
   useEffect(() => {
     axios.get(`/api/get-active-offers-by-user-id/${id}`).then((response) => {
-      console.log(response.data);
       setActiveOffers(response.data);
     });
   }, [])
 
   function fetchUserData(id) {
     axios.get(`/api/get-user-by-id/${id}`).then((response) => {
-      console.log(response);
       setUser(response.data);
     });
   }
@@ -109,6 +115,7 @@ function UserProfile() {
       [key]: value,
     });
   };
+
 
   return (
     <div>

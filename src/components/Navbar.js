@@ -1,6 +1,7 @@
 import React from 'react';
 import Logout from "./Logout";
 
+
 function Navbar(props) {
 
   let isAuthenticated = localStorage.getItem("token");
