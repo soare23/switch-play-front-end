@@ -60,27 +60,43 @@ function Register(props) {
 
   return (
     <div>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center register-container">
         <div>
           <div
             style={{
-              backgroundColor: '#e8f2f6',
               padding: '20px',
               marginTop: '75px',
               borderRadius: '10px',
+              width: '350px',
+              backgroundColor: 'transparent',
+              textAlign: 'center',
             }}
           >
             <form action="" onSubmit={handleSubmit}>
-                <div>{exists && <div style={{"textAlign" : "center", "backgroundColor" : "#f8a6a6", "marginTop" : "50px", "border" : "solid 1px #124686", "color" : "#660101"}}><i>Email already used</i></div>}</div>
+              <div>
+                {exists && (
+                  <div
+                    style={{
+                      textAlign: 'center',
+                      backgroundColor: '#f8a6a6',
+                      marginTop: '50px',
+                      border: 'solid 1px #124686',
+                      color: '#660101',
+                    }}
+                  >
+                    <i>Email already used</i>
+                  </div>
+                )}
+              </div>
 
-                <h1
+              <h1
                 style={{
                   marginTop: '15px',
                   fontFamily: "'Source Serif Pro', serif",
                   fontSize: '30px',
                 }}
               >
-                User Register
+                User Registration
               </h1>
               {exists ? (
                 <div>
@@ -246,23 +262,28 @@ function Register(props) {
                   }}
                 />
               </div>
-
-              <Link to="/">
+              <div className="registration-button-container">
                 <button
-                  style={{ marginTop: '15px', float: 'right' }}
+                  style={{ marginTop: '15px', marginRight: '5px' }}
                   type="submit"
                   className="btn btn-outline-primary"
                 >
-                  Back
+                  Submit
                 </button>
-              </Link>
-              <button
-                style={{ marginTop: '15px' }}
-                type="submit"
-                className="btn btn-outline-primary"
-              >
-                Submit
-              </button>
+                <Link to="/">
+                  <button
+                    style={{
+                      marginTop: '15px',
+                      float: 'right',
+                      marginLeft: '5px',
+                    }}
+                    type="submit"
+                    className="btn btn-outline-primary"
+                  >
+                    Back
+                  </button>
+                </Link>
+              </div>
             </form>
           </div>
         </div>
