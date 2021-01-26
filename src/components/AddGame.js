@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function AddGame(props) {
   //TODO user id will be from the token in the future
-  const userId = 'a1912794-d361-471b-a851-92d565718277';
+  const userId = 'b25cb075-b409-4f6d-a831-5ef78892590d';
 
   const [searchedGameList, setSearchedGameList] = useState([]);
   const [offerToAdd, setOfferToAdd] = useState({

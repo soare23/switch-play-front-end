@@ -11,9 +11,11 @@ function Navbar(props) {
         <a className="nav-link" href={'/homepage'}>
           Home
         </a>
+        {isAuthenticated === null ?
         <a className="nav-link" href={'/register'}>
           Register
-        </a>
+        </a> : null }
+
         {isAuthenticated === null ?
             <a className="nav-link" href={'/login'}>
               Login
@@ -26,9 +28,10 @@ function Navbar(props) {
 
         <div style={{ flex: 1 }}></div>
         <div>
+          {isAuthenticated !== null ?
           <a className="nav-link" href={'/profile'}>
             Profile
-          </a>
+          </a> : null }
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ function UserProfile() {
   });
 
   //   // ID will be found in session when session will be implemented
-  let id = 'a1912794-d361-471b-a851-92d565718277';
+  let id = 'b25cb075-b409-4f6d-a831-5ef78892590d';
 
   useEffect(() => {
     fetchUserData(id);
