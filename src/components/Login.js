@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Login() {
+
+  const [wrongEmail, setWrongEmail] = useState(false);
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -12,7 +14,7 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
     axios
-      .post(`/api/check-if-user`, user)
+      .post(`/api/login`, user)
       .then((response) => {
         if (response.status === 200) {
           setLoggedIn(true);
@@ -25,6 +27,7 @@ function Login() {
         if (err.response.status === 401) {
           console.log('wrong password');
         } else if (err.response.status === 409) {
+          setWrongEmail(true);
           console.log('wrong email');
         } else {
           console.log(err);
@@ -37,7 +40,25 @@ function Login() {
   return (
     <div>
       <div className="d-flex justify-content-center">
+        <div
+            style={{
+              backgroundColor: '#e8f2f6',
+              padding: '20px',
+              marginTop: '75px',
+              borderRadius: '10px',
+            }}
+        >
         <form onSubmit={handleSubmit}>
+          <div>{wrongEmail && <div style={{"textAlign" : "center", "backgroundColor" : "#f8a6a6", "marginTop" : "50px", "border" : "solid 1px #124686", "color" : "#660101"}}><i>Wrong email</i></div>}</div>
+          <h1
+              style={{
+                marginTop: '15px',
+                fontFamily: "'Source Serif Pro', serif",
+                fontSize: '30px',
+              }}
+          >
+            User Login
+          </h1>
           {/*USER EMAIL*/}
           <div>
             <input
@@ -87,6 +108,7 @@ function Login() {
             Submit
           </button>
         </form>
+        </div>
       </div>
     </div>
   );

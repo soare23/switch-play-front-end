@@ -71,7 +71,9 @@ function Register(props) {
             }}
           >
             <form action="" onSubmit={handleSubmit}>
-              <h1
+                <div>{exists && <div style={{"textAlign" : "center", "backgroundColor" : "#f8a6a6", "marginTop" : "50px", "border" : "solid 1px #124686", "color" : "#660101"}}><i>Email already used</i></div>}</div>
+
+                <h1
                 style={{
                   marginTop: '15px',
                   fontFamily: "'Source Serif Pro', serif",
