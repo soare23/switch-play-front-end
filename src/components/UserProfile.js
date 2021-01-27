@@ -119,11 +119,19 @@ function UserProfile() {
   const setEditProfileToFalse = () => {
     setInputIsEditable(false);
     axios
-      .put(`api/update-user/${id}`, updatedUserInformation)
+      .put(`api/update-user/${id}`, updatedUserInformation, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      })
       .then((response) => {
         if (response.status === 201) {
           console.log('User updated succesfully');
-          window.location.href = 'http://localhost:3000/profile';
+          setUser({ ...updatedUserInformation });
+          generateUserAvatar(
+            updatedUserInformation.firstName,
+            updatedUserInformation.lastName
+          );
         }
       });
   };
@@ -141,7 +149,6 @@ function UserProfile() {
         <div className="row">
           <div className="col">
             <div className="panel panel-default plain profile-panel">
-              <div className="panel-heading white-content p-left p-right"></div>
               <div className="panel-body">
                 <div className="container">
                   <div className="profile-avatar">
@@ -178,7 +185,7 @@ function UserProfile() {
                           ) : (
                             <button
                               onClick={setEditProfileToFalse}
-                              className="btn btn-success"
+                              className="btn btn-special"
                             >
                               Save Profile
                             </button>
