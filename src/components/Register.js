@@ -48,8 +48,7 @@ function Register(props) {
     axios
       .post(`/api/add-user/`, user)
       .then(() => {
-        alert('Registration successfully !');
-        window.location.href = 'http://localhost:3000/homepage';
+        window.location.href = 'http://localhost:3000/login';
       })
       .catch((err) => {
         if (err.response.status === 409) {
@@ -92,7 +91,6 @@ function Register(props) {
               <h1
                 style={{
                   marginTop: '15px',
-                  fontFamily: "'Source Serif Pro', serif",
                   fontSize: '30px',
                 }}
               >
@@ -251,7 +249,7 @@ function Register(props) {
               {/*USER PASSWORD*/}
               <div>
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   value={user.password}
                   required
@@ -272,7 +270,7 @@ function Register(props) {
                 >
                   Submit
                 </button>
-                <Link to="/">
+                <Link to="/homepage">
                   <button
                     style={{
                       marginTop: '15px',
