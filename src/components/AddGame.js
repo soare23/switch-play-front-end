@@ -40,9 +40,9 @@ function AddGame(props) {
       .then((response) => {
         setSearchedGameList(response.data.results);
       });
+    setSelectedGame({});
+    document.getElementById('search-hints').hidden = false;
   };
-
-  console.log(selectedGame);
 
   const addGame = (e) => {
     e.preventDefault();
@@ -83,7 +83,7 @@ function AddGame(props) {
       </div>
 
       <div className="d-flex justify-content-center">
-        <ul id="gameCard">
+        <ul id="search-hints" className="search-container">
           {searchedGameList.map((game, index) => {
             return (
               <p key={index}>
@@ -94,7 +94,7 @@ function AddGame(props) {
                       .get(`https://api.rawg.io/api/games/${game.id}`)
                       .then((response) => {
                         setSelectedGame(response.data);
-                        document.getElementById('gameCard').hidden = true;
+                        document.getElementById('search-hints').hidden = true;
                       });
                   }}
                 >
