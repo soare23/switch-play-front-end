@@ -111,3 +111,10 @@ input {
   padding: 10px;
   border-radius: 5px;
 }
+
+.no-games-message {
+  margin-top: 70px;
+  color: #fffdfd;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
