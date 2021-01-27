@@ -96,7 +96,9 @@ export default function SearchGame() {
             ))}
           </div>
         ) : (
-          <h1>Sorry we don't have this game</h1>
+          <h1 className="no-games-message">
+            Sorry, there are no offers available
+          </h1>
         )}
       </div>
     </div>
