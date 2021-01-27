@@ -46,3 +46,17 @@ input {
   text-align: center;
   border-color: aliceblue;
 }
+
+.logo {
+  background-image: url(/src/images/logo.png);
+  width: 250px;
+  height: 75px;
+  margin: 2px;
+}
+
+.nav {
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

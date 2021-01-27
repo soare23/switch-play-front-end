@@ -13,7 +13,11 @@ function Login() {
   function handleSubmit(e) {
     e.preventDefault();
     axios
-      .post(`/api/login`, user)
+      .post(`/api/login`, user, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      })
       .then((response) => {
         if (response.status === 200) {
           setLoggedIn(true);
