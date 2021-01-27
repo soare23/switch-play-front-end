@@ -76,3 +76,15 @@ input {
   margin: auto;
   color: #93c7ff;
 }
+
+.card {
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px 10px;
+  padding: 20px;
+  text-align: center;
+}
