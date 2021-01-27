@@ -112,6 +112,11 @@
   color: #768399;
 }
 
+.panel {
+  background-color: white;
+  box-shadow: 0 19px 38px rgb(0 0 0 / 30%), 0 15px 12px rgb(0 0 0 / 22%);
+}
+
 .panel-heading .white-content {
   color: #768399;
   background: #fff;
@@ -175,4 +180,10 @@ input {
   border-radius: 5px;
   height: auto;
   margin: 5px;
+}
+
+.btn-special {
+  background-color: #93c7ff;
+  border-color: #93c7ff;
+  color: #fcf602;
 }
