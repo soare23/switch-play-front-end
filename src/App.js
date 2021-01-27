@@ -8,23 +8,23 @@ import Navbar from './components/Navbar';
 import './App.css';
 import AddGame from './components/AddGame';
 import SearchGame from './components/SearchGame';
-import { UserProvider } from "./components/UserContext";
+import { UserProvider } from './components/UserContext';
 
 function App() {
   return (
-      <UserProvider>
-            <div className="App">
-                <Navbar />
-                <Router>
-                  <Route exact path={'/register'} component={Register} />
-                  <Route exact path={'/login'} component={Login} />
-                  <Route exact path={'/homepage'} component={HomePage} />
-                  <Route exact path={'/profile'} component={UserProfile} />
-                  <Route exact path={'/add-game'} component={AddGame} />
-                  <Route exact path={'/search-game'} component={SearchGame} />
-                </Router>
-            </div>
-      </UserProvider>
+    <UserProvider>
+      <div className="App">
+        <Router>
+          <Navbar />
+          <Route exact path={'/register'} component={Register} />
+          <Route exact path={'/login'} component={Login} />
+          <Route exact path={'/homepage'} component={HomePage} />
+          <Route exact path={'/profile'} component={UserProfile} />
+          <Route exact path={'/add-game'} component={AddGame} />
+          <Route exact path={'/search-game'} component={SearchGame} />
+        </Router>
+      </div>
+    </UserProvider>
   );
 }
 
