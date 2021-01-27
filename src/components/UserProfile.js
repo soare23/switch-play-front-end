@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import { useState, useEffect } from 'react';
 import '../UserProfile.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -15,10 +15,9 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import ActiveOffers from './ActiveOffers';
 import Modal from 'react-modal';
 import EditableFields from './EditableFields';
-import {UserContext} from "./UserContext";
+import { UserContext } from './UserContext';
 
 function UserProfile() {
-
   const value = useContext(UserContext);
 
   library.add(faPhone, faMapMarkerAlt, faEnvelope, faDesktop, fab, faGamepad);
@@ -39,13 +38,10 @@ function UserProfile() {
     country: '',
     console: '',
   });
+  const [userAvatar, setUserAvatar] = useState();
 
   //   // ID will be found in session when session will be implemented
   let id = value.userId;
-
-
-
-
 
   useEffect(() => {
     fetchUserData(id);
@@ -62,24 +58,38 @@ function UserProfile() {
   }, [inputIsEditable]);
 
   useEffect(() => {
-    axios.get(`/api/get-active-offers-by-user-id/${id}`, {
-      headers :{
-        "Authorization" : "Bearer " +  localStorage.getItem("token")
-      }
-    }).then((response) => {
-      setActiveOffers(response.data);
-    });
-  }, [])
+    axios
+      .get(`/api/get-active-offers-by-user-id/${id}`, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      })
+      .then((response) => {
+        setActiveOffers(response.data);
+      });
+  }, []);
 
   function fetchUserData(id) {
+    axios
+      .get(`/api/get-user-by-id/${id}`, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      })
+      .then((response) => {
+        setUser(response.data);
+        generateUserAvatar(response.data.firstName, response.data.lastName);
+      });
+  }
 
-    axios.get(`/api/get-user-by-id/${id}`, {
-      headers :{
-        "Authorization" : "Bearer " +  localStorage.getItem("token")
-      }
-    }).then((response) => {
-      setUser(response.data);
-    });
+  function generateUserAvatar(firstName, lastName) {
+    console.log(firstName, lastName);
+    axios
+      .get(`https://eu.ui-avatars.com/api/?name=${firstName}+${lastName}`)
+      .then((response) => {
+        setUserAvatar(response.config.url);
+        console.log(response);
+      });
   }
 
   const setModalIsOpenToTrue = () => {
@@ -125,7 +135,6 @@ function UserProfile() {
     });
   };
 
-
   return (
     <div>
       <div className="container main-container">
@@ -138,7 +147,7 @@ function UserProfile() {
                   <div className="profile-avatar">
                     <img
                       className="img-responsive"
-                      src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                      src={userAvatar}
                       alt="profile"
                     ></img>
                   </div>
