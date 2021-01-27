@@ -6,8 +6,6 @@ import { UserContext } from './UserContext';
 function Navbar(props) {
   const userDetails = useContext(UserContext);
 
-  console.log(userDetails);
-
   return (
     <div style={{ backgroundColor: 'transparent' }}>
       <div className="nav justify-content-start">
@@ -15,9 +13,12 @@ function Navbar(props) {
           <div className="logo"></div>
         </Link>
         <div style={{ flex: 1 }}></div>
-        <div className="welcome-tab-navbar">
-          <p>Welcome {userDetails.sub}</p>
-        </div>
+        {userDetails !== undefined ? (
+          <div className="welcome-tab-navbar">
+            <p>Welcome {userDetails.firstName}</p>
+          </div>
+        ) : null}
+
         <div>
           {userDetails !== undefined ? (
             <Link className="nav-link" to="/profile">
