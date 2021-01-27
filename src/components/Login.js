@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function Login() {
-  const [wrongEmail, setWrongEmail] = useState(false);
+  const [wrongCredentials, setWrongCredentials] = useState(false);
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -27,10 +27,11 @@ function Login() {
       })
       .catch((err) => {
         console.log(err);
-        if (err.response.status === 401) {
+        if (err.response.status === 403) {
+          setWrongCredentials(true);
           console.log('wrong password');
         } else if (err.response.status === 409) {
-          setWrongEmail(true);
+          setWrongCredentials(true);
           console.log('wrong email');
         } else {
           console.log(err);
@@ -53,7 +54,7 @@ function Login() {
         >
           <form onSubmit={handleSubmit}>
             <div>
-              {wrongEmail && (
+              {wrongCredentials && (
                 <div
                   style={{
                     textAlign: 'center',
@@ -61,16 +62,16 @@ function Login() {
                     marginTop: '50px',
                     border: 'solid 1px #124686',
                     color: '#660101',
+                    borderRadius: '5px',
                   }}
                 >
-                  <i>Incorrect email or password.</i>
+                  <p style={{ margin: 'auto' }}>Incorrect email or password</p>
                 </div>
               )}
             </div>
             <h1
               style={{
                 marginTop: '15px',
-                fontFamily: "'Source Serif Pro', serif",
                 fontSize: '30px',
               }}
             >
@@ -116,7 +117,7 @@ function Login() {
               >
                 Submit
               </button>
-              <Link to="/">
+              <Link to="/homepage">
                 <button
                   style={{
                     marginTop: '15px',
