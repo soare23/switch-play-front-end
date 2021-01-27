@@ -5,7 +5,6 @@ import { UserContext } from './UserContext';
 function AddGame(props) {
   const value = useContext(UserContext);
   const userId = value.userId;
-
   const [searchedGameList, setSearchedGameList] = useState([]);
   const [offerToAdd, setOfferToAdd] = useState({
     game: {
@@ -46,6 +45,7 @@ function AddGame(props) {
 
   const addGame = (e) => {
     e.preventDefault();
+    document.getElementById('alert').style.display = 'flex';
     const s = { ...offerToAdd };
     s.game.title = selectedGame.name;
     s.game.picture = selectedGame.background_image;
@@ -53,8 +53,17 @@ function AddGame(props) {
     s.game.rating = selectedGame.rating;
     setOfferToAdd(s);
     axios
-      .post(`/api/add-offer/${userId}`, offerToAdd)
-      .then(() => alert('Game added successfully !'));
+      .post(`/api/add-offer/${userId}`, offerToAdd, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      })
+      .then(() =>
+        setTimeout(() => {
+          setSelectedGame({});
+          document.getElementById('alert').style.display = 'none';
+        }, 2000)
+      );
   };
 
   return (
@@ -80,6 +89,14 @@ function AddGame(props) {
             onChange={handleChange}
           />
         </form>
+      </div>
+
+      <div
+        className="success-message-container"
+        id="alert"
+        style={{ display: 'none' }}
+      >
+        <p className="gamed-added-message">Game offer added succesfuly!</p>
       </div>
 
       <div className="d-flex justify-content-center">
