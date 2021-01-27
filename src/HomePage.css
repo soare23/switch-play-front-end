@@ -5,6 +5,10 @@
   height: 100vh;
 }
 
+.card-container a {
+  color: #007bff;
+}
+
 .card {
   height: 350px;
   width: 500px;
