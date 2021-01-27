@@ -1,40 +1,44 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Logout from './Logout';
+import { Link } from 'react-router-dom';
+import { UserContext } from './UserContext';
 
 function Navbar(props) {
-  let isAuthenticated = localStorage.getItem('token');
+  const userDetails = useContext(UserContext);
+
+  console.log(userDetails);
 
   return (
     <div style={{ backgroundColor: 'transparent' }}>
       <div className="nav justify-content-start">
-        <div className="logo"></div>
-        <a className="nav-link" href={'/homepage'}>
-          Home
-        </a>
-        {isAuthenticated === null ? (
-          <a className="nav-link" href={'/register'}>
+        <Link to="/homepage">
+          <div className="logo"></div>
+        </Link>
+        <div style={{ flex: 1 }}></div>
+        <div className="welcome-tab-navbar">
+          <p>Welcome {userDetails.sub}</p>
+        </div>
+        <div>
+          {userDetails !== undefined ? (
+            <Link className="nav-link" to="/profile">
+              Profile
+            </Link>
+          ) : null}
+        </div>
+        {userDetails === undefined ? (
+          <Link className="nav-Link" to="/register">
             Register
-          </a>
+          </Link>
         ) : null}
-
-        {isAuthenticated === null ? (
-          <a className="nav-link" href={'/login'}>
+        {userDetails === undefined ? (
+          <Link className="nav-link" to={'/login'}>
             Login
-          </a>
+          </Link>
         ) : (
           <a className="nav-link" href={'/homepage'} onClick={Logout}>
             Logout
           </a>
         )}
-
-        <div style={{ flex: 1 }}></div>
-        <div>
-          {isAuthenticated !== null ? (
-            <a className="nav-link" href={'/profile'}>
-              Profile
-            </a>
-          ) : null}
-        </div>
       </div>
     </div>
   );
