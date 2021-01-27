@@ -1,9 +1,8 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import {UserContext} from "./UserContext";
+import { UserContext } from './UserContext';
 
 function AddGame(props) {
-
   const value = useContext(UserContext);
   const userId = value.userId;
 
@@ -43,6 +42,8 @@ function AddGame(props) {
       });
   };
 
+  console.log(selectedGame);
+
   const addGame = (e) => {
     e.preventDefault();
     const s = { ...offerToAdd };
@@ -62,7 +63,6 @@ function AddGame(props) {
         <h1
           style={{
             marginTop: '15px',
-            fontFamily: "'Source Serif Pro', serif",
             fontSize: '30px',
           }}
         >
@@ -119,6 +119,15 @@ function AddGame(props) {
               <p className="card-text">
                 Release year : {selectedGame.released}
               </p>
+              <div style={{ display: 'flex' }}>
+                <p className="card-text">Genres:</p>
+                <ul className="card-text">
+                  {selectedGame.genres.map((genre) => (
+                    <li>{genre.name}</li>
+                  ))}
+                </ul>
+              </div>
+
               <div className="input-group mb-3" style={{ marginTop: '15px' }}>
                 <select
                   className="custom-select"
