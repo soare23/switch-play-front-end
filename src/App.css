@@ -1,3 +1,7 @@
+* {
+  font-family: 'Audiowide', cursive;
+}
+
 body {
   background-image: url(/src/images/main-background-3.png);
 
@@ -19,6 +23,7 @@ body {
 a {
   font-weight: bold;
   font-size: large;
+  color: #93c7ff;
 }
 
 .register-container {
@@ -59,4 +64,15 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.welcome-tab-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-tab-navbar p {
+  margin: auto;
+  color: #93c7ff;
 }
