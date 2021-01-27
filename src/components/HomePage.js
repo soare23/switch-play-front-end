@@ -7,11 +7,11 @@ function HomePage() {
     <div>
       <div className="card-container">
         <Link to="/add-game">
-          <div className="card card-add"></div>
+          <div className="card-home-page card-add"></div>
         </Link>
 
         <Link to="/search-game">
-          <div className="card card-search"></div>
+          <div className="card-home-page card-search"></div>
         </Link>
       </div>
     </div>
