@@ -21,6 +21,7 @@ function SearchGameToOffer({offerId}) {
 
         },
         gameWhoReceived : {
+
         },
         date : Date.now(),
     })
@@ -33,7 +34,7 @@ function SearchGameToOffer({offerId}) {
     const [nonActiveUser, setNonActiveUser] = useState({});
     const [consoleList, setConsoleList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
+    const [gameToAddToDeal, setGameToAddToDeal] = useState({});
     const [offerToAdd, setOfferToAdd] = useState({
         game: {
             title: '',
@@ -80,11 +81,20 @@ function SearchGameToOffer({offerId}) {
         s.game.category = selectedGame.genres[0].name;
         s.game.rating = selectedGame.rating;
         setOfferToAdd(s);
+
         axios
             .post(`/api/add-offer/${userId}`, offerToAdd)
-            .then(() => alert('Game added successfully !'));
+            .then(() =>
 
-        console.log(deal)
+            axios
+                .get(`/api/get-offer/${selectedGame.name}`)
+                .then(response => {
+                    setGameToAddToDeal(response.data.game);
+                    const c = {...deal}
+                    c.gameSent = gameToAddToDeal;
+                    setDeal(c);
+                }));
+
     };
 
 
