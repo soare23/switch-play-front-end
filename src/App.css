@@ -90,10 +90,11 @@ input {
 }
 
 .search-container {
-  width: 300px;
+  width: 250px;
   text-align: center;
   padding: 0;
   margin-top: 25px;
+  font-size: smaller;
 }
 
 .success-message-container {
@@ -117,4 +118,20 @@ input {
   color: #fffdfd;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
+}
+
+.trade-offer-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+}
+
+.game-result-card {
+  height: 520px;
+  max-height: 520px;
+}
+
+.offer-card {
+  height: 520px;
+  max-height: 520px;
 }
