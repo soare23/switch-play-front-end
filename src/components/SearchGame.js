@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import SearchGameToOffer from "./SearchGameToOffer";
 
 export default function SearchGame() {
   const [display, setDisplay] = useState(true);
   const [containerDisplay, setContainerDisplay] = useState(false);
+  const [showComponent, setShowComponent] = useState(false);
   const [options, setOptions] = useState([]);
   const [gamesList, setGames] = useState([]);
 
@@ -90,6 +92,15 @@ export default function SearchGame() {
                     <p className="card-text">
                       Rating : {selectedGame.game.rating}
                     </p>
+
+                      <button id="makeAnOffer" onClick={() => {
+                          setShowComponent(!showComponent);
+                          document.getElementById("makeAnOffer").hidden = true;
+                      }}>Make an offer</button>
+                      {showComponent ?
+                          <SearchGameToOffer offerId={selectedGame.id}/> : null
+                      }
+
                   </div>
                 </div>
               </div>
