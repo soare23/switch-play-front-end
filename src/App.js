@@ -9,6 +9,7 @@ import './App.css';
 import AddGame from './components/AddGame';
 import SearchGame from './components/SearchGame';
 import { UserProvider } from "./components/UserContext";
+import SearchGameToOffer from "./components/SearchGameToOffer";
 
 function App() {
   return (

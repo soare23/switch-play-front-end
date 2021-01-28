@@ -6,7 +6,6 @@ function SearchGameToOffer({offerId}) {
 
     const value = useContext(UserContext);
     const userId = value.userId;
-
     const [searchedGameList, setSearchedGameList] = useState([]);
     const [activeUser, setActiveUser] = useState({});
 
@@ -84,16 +83,27 @@ function SearchGameToOffer({offerId}) {
 
         axios
             .post(`/api/add-offer/${userId}`, offerToAdd)
-            .then(() =>
+            .then((response) => {
+                if(response.status === 201){
+                    axios.get(`/api/get-offer/${response.data.title}`)
+                        .then(() => {
+                            setGameToAddToDeal(response.data.game);
+                            const c = {...deal}
+                            c.gameSent = gameToAddToDeal;
+                            setDeal(c);
+                        })
+                        .then(() => {
+                            console.log(deal)
+                            axios.post(`/api/add-deal`, deal)
+                                .then((response) => {
 
-            axios
-                .get(`/api/get-offer/${selectedGame.name}`)
-                .then(response => {
-                    setGameToAddToDeal(response.data.game);
-                    const c = {...deal}
-                    c.gameSent = gameToAddToDeal;
-                    setDeal(c);
-                }));
+                                    console.log(response.status)
+                                })
+                        })
+                    }
+                }
+
+            );
 
     };
 
@@ -102,11 +112,12 @@ function SearchGameToOffer({offerId}) {
     return (
         <>
             <div className="d-flex justify-content-center">
-                <h4 style={{marginTop: '15px', fontFamily: "'Source Serif Pro', serif",}}>
+                <h4 style={{marginTop: '15px'}}>
                     <i>Game you offer : </i>
                 </h4>
             </div>
 
+{/*GAME THAT YOU SEARCH (DESIRE TO GET)*/}
             <div className="d-flex justify-content-center">
                 <form className="form-inline my-2 my-lg-0">
                     <input className="form-control mr-sm-2" id="searchBar" type="search" placeholder="Enter game name..." aria-label="Search" onChange={handleChange}/>
@@ -134,6 +145,7 @@ function SearchGameToOffer({offerId}) {
                 </ul>
             </div>
 
+{/*GAME THAT YOU OFFER*/}
             {Object.keys(selectedGame).length !== 0 && (
                 <div className="d-flex justify-content-center">
                     <div>
@@ -144,7 +156,6 @@ function SearchGameToOffer({offerId}) {
                             <div className="input-group mb-3" style={{ marginTop: '15px' }}>
                                 <select className="custom-select" id="inputGroupSelect01" required onChange={(e) => {
                                     const s = {...deal};
-                                    // c.game.platform = e.target.value;
                                     s.userWhoSent = activeUser;
                                     s.userWhoReceived = nonActiveUser;
                                     s.gameWhoReceived = desiredGame;

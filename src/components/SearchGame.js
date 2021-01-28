@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import SearchGameToOffer from "./SearchGameToOffer";
-
+import {Link} from "react-router-dom";
 
 export default function SearchGame() {
 
@@ -72,6 +72,8 @@ export default function SearchGame() {
                             <SearchGameToOffer offerId={selectedGame.id}/> : null
                         }
                         {/*//TODO -------this part is modified----------------*/}
+
+
 
                     </div>
             </div>
