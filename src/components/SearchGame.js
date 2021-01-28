@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import SearchGameToOffer from "./SearchGameToOffer";
+import SearchGameToOffer from './SearchGameToOffer';
 
 export default function SearchGame() {
   const [display, setDisplay] = useState(true);
@@ -8,12 +8,19 @@ export default function SearchGame() {
   const [showComponent, setShowComponent] = useState(false);
   const [options, setOptions] = useState([]);
   const [gamesList, setGames] = useState([]);
+  const [offerId, setOfferId] = useState();
 
   function handleSearchInput(e) {
     const search_result = e.target.value;
     axios
       .get(
-        `https://api.rawg.io/api/games?key=a0200251f0824f9291c541b963f86c46&page_size=10&search=${search_result}`
+        `https://api.rawg.io/api/games?key=a0200251f0824f9291c541b963f86c46&page_size=5&search=${search_result}`,
+        {
+          params: {
+            search_exact: false,
+            search_precise: true,
+          },
+        }
       )
       .then((res) => {
         const data = res.data.results;
@@ -22,8 +29,10 @@ export default function SearchGame() {
         setContainerDisplay(false);
       });
   }
+
+  console.log(offerId);
   return (
-    <div>
+    <>
       <div className="d-flex justify-content-center">
         <h1 style={{ marginTop: '15px', fontSize: '30px' }}>
           Search for a game
@@ -69,17 +78,17 @@ export default function SearchGame() {
       )}
       <div className="d-flex justify-content-center">
         {gamesList.length > 0 || !containerDisplay ? (
-          <div>
+          <div className="trade-offer-container">
             {gamesList.map((selectedGame) => (
               <div className="d-flex justify-content-center">
                 <div
-                  className="card h-100"
+                  className="card h-100 game-result-card"
                   style={{ width: '18rem', marginTop: '20px' }}
                 >
                   <img
                     className="card-img-top"
                     src={selectedGame.game.picture}
-                    alt="Card image cap"
+                    alt="game logo"
                   />
                   <div className="card-body">
                     <h5 className="card-title">{selectedGame.game.title}</h5>
@@ -93,18 +102,22 @@ export default function SearchGame() {
                       Rating : {selectedGame.game.rating}
                     </p>
 
-                      <button id="makeAnOffer" onClick={() => {
-                          setShowComponent(!showComponent);
-                          document.getElementById("makeAnOffer").hidden = true;
-                      }}>Make an offer</button>
-                      {showComponent ?
-                          <SearchGameToOffer offerId={selectedGame.id}/> : null
-                      }
-
+                    <button
+                      id="makeAnOffer"
+                      onClick={() => {
+                        setShowComponent(!showComponent);
+                        document.getElementById('makeAnOffer').hidden = true;
+                        setOfferId(selectedGame.id);
+                      }}
+                      className="btn btn-special"
+                    >
+                      Make an offer
+                    </button>
                   </div>
                 </div>
               </div>
             ))}
+            {showComponent ? <SearchGameToOffer offerId={offerId} /> : null}
           </div>
         ) : (
           <h1 className="no-games-message">
@@ -112,6 +125,9 @@ export default function SearchGame() {
           </h1>
         )}
       </div>
-    </div>
+    </>
   );
 }
+
+// {showComponent ?
+//     <SearchGameToOffer offerId={selectedGame.id}/> : null //
