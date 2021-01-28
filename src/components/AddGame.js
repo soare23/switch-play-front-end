@@ -34,7 +34,14 @@ function AddGame(props) {
   const handleChange = (e) => {
     axios
       .get(
-        `https://api.rawg.io/api/games?key=d124f7e507b7487ba9faa3cc51bfaabf&search=${e.target.value}`
+        `https://api.rawg.io/api/games?key=d124f7e507b7487ba9faa3cc51bfaabf&search=${e.target.value}`,
+        {
+          params: {
+            page_size: 5,
+            search_exact: false,
+            search_precise: true,
+          },
+        }
       )
       .then((response) => {
         setSearchedGameList(response.data.results);
