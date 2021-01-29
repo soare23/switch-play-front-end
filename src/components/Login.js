@@ -109,6 +109,12 @@ function Login() {
                 }}
               />
             </div>
+            <div className="register-redirect-container">
+              <p>
+                You don't have an account?
+                <Link to="/register">Register </Link>with us.
+              </p>
+            </div>
             <div className="login-button-container">
               <button
                 style={{ marginTop: '15px', marginRight: '5px' }}
