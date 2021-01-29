@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import SearchGameToOffer from './SearchGameToOffer';
+import { UserContext } from './UserContext';
 
 export default function SearchGame() {
   const [display, setDisplay] = useState(true);
@@ -9,6 +10,7 @@ export default function SearchGame() {
   const [options, setOptions] = useState([]);
   const [gamesList, setGames] = useState([]);
   const [offerId, setOfferId] = useState();
+  const user = useContext(UserContext);
 
   function handleSearchInput(e) {
     const search_result = e.target.value;
@@ -28,6 +30,16 @@ export default function SearchGame() {
         setDisplay(true);
         setContainerDisplay(false);
       });
+  }
+
+  function openMakeAnOfferComponent(gameID) {
+    if (user) {
+      setShowComponent(!showComponent);
+      document.getElementById('makeAnOffer').hidden = true;
+      setOfferId(gameID);
+    } else {
+      window.location.href = 'http://localhost:3000/login';
+    }
   }
 
   console.log(offerId);
@@ -105,9 +117,7 @@ export default function SearchGame() {
                     <button
                       id="makeAnOffer"
                       onClick={() => {
-                        setShowComponent(!showComponent);
-                        document.getElementById('makeAnOffer').hidden = true;
-                        setOfferId(selectedGame.id);
+                        openMakeAnOfferComponent(selectedGame.id);
                       }}
                       className="btn btn-special"
                     >
@@ -128,6 +138,3 @@ export default function SearchGame() {
     </>
   );
 }
-
-// {showComponent ?
-//     <SearchGameToOffer offerId={selectedGame.id}/> : null //

@@ -107,22 +107,20 @@ function SearchGameToOffer({ offerId }) {
               },
             })
             .then(() => {
-              if (response.data.userId === userId) {
-                setGameToAddToDeal(response.data.game);
-                const c = { ...deal };
-                console.log(gameToAddToDeal);
-                c.gameSent = gameToAddToDeal;
-                setDeal(c);
-                axios
-                  .post(`/api/add-deal`, deal, {
-                    headers: {
-                      Authorization: 'Bearer ' + localStorage.getItem('token'),
-                    },
-                  })
-                  .then((response) => {
-                    console.log(response.status);
-                  });
-              }
+              setGameToAddToDeal(response.data.game);
+              const c = { ...deal };
+              console.log(gameToAddToDeal);
+              c.gameSent = gameToAddToDeal;
+              setDeal(c);
+              axios
+                .post(`/api/add-deal`, deal, {
+                  headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token'),
+                  },
+                })
+                .then((response) => {
+                  console.log(response.status);
+                });
             });
         }
       });
