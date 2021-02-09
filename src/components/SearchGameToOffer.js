@@ -6,35 +6,22 @@ function SearchGameToOffer({ offerId }) {
   const value = useContext(UserContext);
   const userId = value.userId;
   const [searchedGameList, setSearchedGameList] = useState([]);
-  const [activeUser, setActiveUser] = useState({});
+
 
   const [deal, setDeal] = useState({
-    userWhoSent: {},
-    gameSent: {},
-    userWhoReceived: {},
-    gameWhoReceived: {},
+    activeUserID: userId,
+    gameSentTitle: "",
+    offlineUserID: "",
+    gameListedId: "",
     date: Date.now(),
   });
 
   //the game that user will like to offer (to send)
   const [selectedGame, setSelectedGame] = useState({});
-
-  //the game that user wishes to purchase
-  const [desiredGame, setDesiredGame] = useState({});
-  const [nonActiveUser, setNonActiveUser] = useState({});
   const [consoleList, setConsoleList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [gameToAddToDeal, setGameToAddToDeal] = useState({});
-  const [offerToAdd, setOfferToAdd] = useState({
-    game: {
-      title: '',
-      platform: '',
-      picture: '',
-      category: '',
-      rating: '',
-    },
-    description: '',
-  });
+
+
 
   useEffect(() => {
     axios
@@ -44,24 +31,18 @@ function SearchGameToOffer({ offerId }) {
       .then((response) => {
         setConsoleList(response.data.results);
       });
-    axios
-      .get(`/api/get-user-by-id/${userId}`, {
+
+//OFFLINE USER AND OFFLINE GAME
+    axios.get(`/api/offer-by-id/${offerId}`, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
       })
       .then((response) => {
-        setActiveUser(response.data);
-      });
-    axios
-      .get(`/api/offer-by-id/${offerId}`, {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
-        },
-      })
-      .then((response) => {
-        setDesiredGame(response.data.game);
-        setNonActiveUser(response.data.user);
+        const s = {...deal}
+        s.offlineUserID = response.data.user.id;
+        s.gameListedId = response.data.game.id;
+        setDeal(s);
         setIsLoading(false);
       });
   }, [isLoading]);
@@ -85,45 +66,15 @@ function SearchGameToOffer({ offerId }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const s = { ...offerToAdd };
-    s.game.title = selectedGame.name;
-    s.game.picture = selectedGame.background_image;
-    s.game.category = selectedGame.genres[0].name;
-    s.game.rating = selectedGame.rating;
-    setOfferToAdd(s);
 
-    axios
-      .post(`/api/add-offer/${userId}`, offerToAdd, {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
-        },
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          axios
-            .get(`/api/get-offer/${response.data.title}`, {
-              headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token'),
-              },
-            })
-            .then(() => {
-              setGameToAddToDeal(response.data.game);
-              const c = { ...deal };
-              console.log(gameToAddToDeal);
-              c.gameSent = gameToAddToDeal;
-              setDeal(c);
-              axios
-                .post(`/api/add-deal`, deal, {
-                  headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token'),
-                  },
-                })
-                .then((response) => {
-                  console.log(response.status);
-                });
-            });
-        }
-      });
+    axios.post(`/api/add-deal`, deal, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      },
+    })
+        .then(() => {
+          console.log("Success")
+        })
   };
 
   return (
@@ -159,6 +110,9 @@ function SearchGameToOffer({ offerId }) {
                             .get(`https://api.rawg.io/api/games/${game.id}`)
                             .then((response) => {
                               setSelectedGame(response.data);
+                              const d = {...deal}
+                              d.gameSentTitle = response.data.name;
+                              setDeal(d);
                               document.getElementById('gameCard').hidden = true;
                               document.getElementById(
                                 'searchBar'
@@ -191,13 +145,6 @@ function SearchGameToOffer({ offerId }) {
                   className="custom-select"
                   id="inputGroupSelect01"
                   required
-                  onChange={(e) => {
-                    const s = { ...deal };
-                    s.userWhoSent = activeUser;
-                    s.userWhoReceived = nonActiveUser;
-                    s.gameWhoReceived = desiredGame;
-                    setDeal(s);
-                  }}
                 >
                   <option defaultValue="">Select platform...</option>
                   {consoleList.map((console, index) => {
