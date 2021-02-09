@@ -183,7 +183,12 @@ input {
 }
 
 .btn-special {
-  background-color: #93c7ff;
-  border-color: #93c7ff;
+  background-color: #1c7bff;
+  border-color: #1c7bff;
   color: #fcf602;
+}
+
+.btn-special:hover {
+  background-color: #0e5cca;
+  border-color: #0e5cca;
 }
