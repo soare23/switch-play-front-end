@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import SearchGameToOffer from './SearchGameToOffer';
+import GameCard from '../components/GameCard';
 import { UserContext } from './UserContext';
 
 export default function SearchGame() {
@@ -8,7 +8,7 @@ export default function SearchGame() {
   const [containerDisplay, setContainerDisplay] = useState(false);
   const [showComponent, setShowComponent] = useState(false);
   const [options, setOptions] = useState([]);
-  const [gamesList, setGames] = useState([]);
+  const [gamesList, setGamesList] = useState([]);
   const [offerId, setOfferId] = useState();
   const user = useContext(UserContext);
 
@@ -42,7 +42,13 @@ export default function SearchGame() {
     }
   }
 
-  console.log(offerId);
+  function handleBrowseDBClick() {
+    axios.get('/api/offers').then((data) => {
+      console.log(data);
+      setGamesList(data.data);
+    });
+  }
+
   return (
     <>
       <div className="d-flex justify-content-center">
@@ -50,6 +56,33 @@ export default function SearchGame() {
           Search for a game
         </h1>
       </div>
+
+      <div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '20px',
+          }}
+        >
+          <button
+            className="btn btn-special"
+            style={{ width: '251px', height: '38px' }}
+            onClick={handleBrowseDBClick}
+          >
+            See available offers
+          </button>
+        </div>
+      </div>
+      <h3
+        style={{
+          textAlign: 'center',
+          margin: '20px',
+        }}
+      >
+        OR
+      </h3>
+
       <div className="d-flex justify-content-center">
         <form className="form-inline my-2 my-lg-0">
           <input
@@ -61,6 +94,7 @@ export default function SearchGame() {
           />
         </form>
       </div>
+
       {display && (
         <div className="d-flex justify-content-center">
           <div style={{ width: '300px', 'padding-left': '50px' }}>
@@ -77,7 +111,7 @@ export default function SearchGame() {
                       .get(`/api/get-offer/${title_result}`)
                       .then((result) => {
                         let games = result.data;
-                        setGames(games);
+                        setGamesList(games);
                       });
                   }}
                 >
@@ -90,45 +124,12 @@ export default function SearchGame() {
       )}
       <div className="d-flex justify-content-center">
         {gamesList.length > 0 || !containerDisplay ? (
-          <div className="trade-offer-container">
-            {gamesList.map((selectedGame) => (
-              <div className="d-flex justify-content-center">
-                <div
-                  className="card h-100 game-result-card"
-                  style={{ width: '18rem', marginTop: '20px' }}
-                >
-                  <img
-                    className="card-img-top"
-                    src={selectedGame.game.picture}
-                    alt="game logo"
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{selectedGame.game.title}</h5>
-                    <p className="card-text">
-                      Category : {selectedGame.game.category}
-                    </p>
-                    <p className="card-text">
-                      User : {selectedGame.user.firstName}
-                    </p>
-                    <p className="card-text">
-                      Rating : {selectedGame.game.rating}
-                    </p>
-
-                    <button
-                      id="makeAnOffer"
-                      onClick={() => {
-                        openMakeAnOfferComponent(selectedGame.id);
-                      }}
-                      className="btn btn-special"
-                    >
-                      Make an offer
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-            {showComponent ? <SearchGameToOffer offerId={offerId} /> : null}
-          </div>
+          <GameCard
+            gamesList={gamesList}
+            openMakeAnOfferComponent={openMakeAnOfferComponent}
+            showComponent={showComponent}
+            offerId={offerId}
+          ></GameCard>
         ) : (
           <h1 className="no-games-message">
             Sorry, there are no offers available
