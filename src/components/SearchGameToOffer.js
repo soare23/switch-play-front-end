@@ -7,12 +7,14 @@ function SearchGameToOffer({ offerId }) {
   const userId = value.userId;
   const [searchedGameList, setSearchedGameList] = useState([]);
 
-
   const [deal, setDeal] = useState({
     activeUserID: userId,
-    gameSentTitle: "",
-    offlineUserID: "",
-    gameListedId: "",
+    gameSentTitle: '',
+    gameSentPlatform: '',
+    gameSentImage: '',
+    offlineUserID: '',
+    offlineUserName: '',
+    gameListedId: '',
     date: Date.now(),
   });
 
@@ -20,8 +22,6 @@ function SearchGameToOffer({ offerId }) {
   const [selectedGame, setSelectedGame] = useState({});
   const [consoleList, setConsoleList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-
 
   useEffect(() => {
     axios
@@ -32,15 +32,17 @@ function SearchGameToOffer({ offerId }) {
         setConsoleList(response.data.results);
       });
 
-//OFFLINE USER AND OFFLINE GAME
-    axios.get(`/api/offer-by-id/${offerId}`, {
+    //OFFLINE USER AND OFFLINE GAME
+    axios
+      .get(`/api/offer-by-id/${offerId}`, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
       })
       .then((response) => {
-        const s = {...deal}
+        const s = { ...deal };
         s.offlineUserID = response.data.user.id;
+        s.offlineUserName = response.data.user.firstName;
         s.gameListedId = response.data.game.id;
         setDeal(s);
         setIsLoading(false);
@@ -67,14 +69,15 @@ function SearchGameToOffer({ offerId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post(`/api/add-deal`, deal, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      },
-    })
-        .then(() => {
-          console.log("Success")
-        })
+    axios
+      .post(`/api/add-deal`, deal, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
+      })
+      .then(() => {
+        console.log('Success');
+      });
   };
 
   return (
@@ -110,8 +113,9 @@ function SearchGameToOffer({ offerId }) {
                             .get(`https://api.rawg.io/api/games/${game.id}`)
                             .then((response) => {
                               setSelectedGame(response.data);
-                              const d = {...deal}
+                              const d = { ...deal };
                               d.gameSentTitle = response.data.name;
+                              d.gameSentImage = response.data.background_image;
                               setDeal(d);
                               document.getElementById('gameCard').hidden = true;
                               document.getElementById(
@@ -145,6 +149,11 @@ function SearchGameToOffer({ offerId }) {
                   className="custom-select"
                   id="inputGroupSelect01"
                   required
+                  onChange={(e) => {
+                    const s = deal;
+                    s.gameSentPlatform = e.target.value;
+                    setDeal(s);
+                  }}
                 >
                   <option defaultValue="">Select platform...</option>
                   {consoleList.map((console, index) => {
