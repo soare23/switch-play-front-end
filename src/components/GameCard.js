@@ -30,8 +30,17 @@ function GameCard({
 
               <button
                 id="makeAnOffer"
-                onClick={() => {
+                onClick={(e) => {
                   openMakeAnOfferComponent(selectedGame.id);
+                  e.target.parentElement.parentElement.setAttribute(
+                    'id',
+                    'show'
+                  );
+                  for (let el of document.getElementsByClassName(
+                    'card h-100 game-result-card'
+                  ))
+                    el.hidden = true;
+                  document.getElementById('show').hidden = false;
                 }}
                 className="btn btn-special"
               >
