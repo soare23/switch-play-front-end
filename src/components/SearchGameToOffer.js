@@ -5,15 +5,16 @@ import axios from 'axios';
 function SearchGameToOffer({ offerId }) {
   const value = useContext(UserContext);
   const userId = value.userId;
+  const offlineName = value.firstName;
   const [searchedGameList, setSearchedGameList] = useState([]);
 
   const [deal, setDeal] = useState({
-    activeUserID: userId,
+    activeUserID: '',
     gameSentTitle: '',
     gameSentPlatform: '',
     gameSentImage: '',
-    offlineUserID: '',
-    offlineUserName: '',
+    offlineUserID: userId,
+    offlineUserName: offlineName,
     gameListedId: '',
     date: Date.now(),
   });
@@ -41,8 +42,8 @@ function SearchGameToOffer({ offerId }) {
       })
       .then((response) => {
         const s = { ...deal };
-        s.offlineUserID = response.data.user.id;
-        s.offlineUserName = response.data.user.firstName;
+        s.activeUserID = response.data.user.id;
+        // s.offlineUserName = response.data.user.firstName;
         s.gameListedId = response.data.game.id;
         setDeal(s);
         setIsLoading(false);
