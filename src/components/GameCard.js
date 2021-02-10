@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchGameToOffer from './SearchGameToOffer';
+import {Link} from "react-router-dom";
 
 function GameCard({
   gamesList,
@@ -25,7 +26,8 @@ function GameCard({
               <p className="card-text">
                 Category : {selectedGame.game.category}
               </p>
-              <p className="card-text">User : {selectedGame.user.firstName}</p>
+              <p className="card-text">User : <Link to={`/user-rating/${selectedGame.user.id}`}>{selectedGame.user.firstName}</Link></p>
+              <a href={`/add-review/${selectedGame.user.id}`}>Add review</a>
               <p className="card-text">Rating : {selectedGame.game.rating}</p>
 
               <button

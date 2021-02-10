@@ -54,8 +54,8 @@ function AddReview(props) {
 
     return (
         <div>
-            <div>{receivingUserId}</div>
-            <div className="container" style={{"margin" : "50px", "padding" : "50px", "backgroundColor" : "#75b3a1", "width" : "400px", "borderRadius" : "20px"}}>
+
+            <div className="container" style={{"margin" : "50px", "padding" : "50px", "backgroundColor" : "#a5d5c8", "width" : "400px", "borderRadius" : "20px"}}>
                 <div className="row">
                     <b style={{"marginTop" : "6px", "marginRight" : "2.5px"}}>Rating : </b>
                     <ReactStars
