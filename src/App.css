@@ -1,3 +1,20 @@
+
+.bg-success {
+  background-color: #43ce00 !important;
+}
+
+.bg-warning {
+  background-color: #9eda00 !important;
+}
+
+.bg-danger {
+  background-color: #fcb300 !important;
+}
+
+.bg-info {
+  background-color: #e07800 !important;
+}
+
 * {
   font-family: 'Audiowide', cursive;
 }
