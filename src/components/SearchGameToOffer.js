@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from './UserContext';
 import axios from 'axios';
 
-function SearchGameToOffer({ offerId }) {
+function SearchGameToOffer({ offerId, handleDealSubmit }) {
   const value = useContext(UserContext);
   const userId = value.userId;
   const offlineName = value.firstName;
@@ -64,20 +64,6 @@ function SearchGameToOffer({ offerId }) {
       )
       .then((response) => {
         setSearchedGameList(response.data.results);
-      });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    axios
-      .post(`/api/add-deal`, deal, {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
-        },
-      })
-      .then(() => {
-        console.log('Success');
       });
   };
 
@@ -169,7 +155,7 @@ function SearchGameToOffer({ offerId }) {
 
               <button
                 className="btn btn-outline-primary"
-                onClick={handleSubmit}
+                onClick={(e) => handleDealSubmit(e, deal)}
               >
                 Submit Offer
               </button>
