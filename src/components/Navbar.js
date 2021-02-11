@@ -12,17 +12,30 @@ function Navbar(props) {
         <Link to="/homepage">
           <div className="logo"></div>
         </Link>
+    
         <div style={{ flex: 1 }}></div>
         {userDetails !== undefined ? (
+        
           <div className="welcome-tab-navbar">
             <p>Welcome {userDetails.firstName}</p>
           </div>
+           
         ) : null}
-
+       
         <div>
           {userDetails !== undefined ? (
+            <>
             <Link className="nav-link" to="/profile">
               Profile
+            </Link>
+            
+           </>
+          ) : null}
+        </div>
+        <div>
+          {userDetails !== undefined ? (
+            <Link to="/inbox">
+             Inbox
             </Link>
           ) : null}
         </div>
