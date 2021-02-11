@@ -9,6 +9,9 @@ import './App.css';
 import AddGame from './components/AddGame';
 import SearchGame from './components/SearchGame';
 import { UserProvider } from './components/UserContext';
+import UserRating from "./components/review/UserRating";
+import AddReview from "./components/review/AddReview";
+import RecievedDeals from './components/RecievedDeals';
 
 function App() {
   return (
@@ -20,8 +23,11 @@ function App() {
           <Route exact path={'/login'} component={Login} />
           <Route exact path={'/homepage'} component={HomePage} />
           <Route exact path={'/profile'} component={UserProfile} />
+          <Route exact path={'/recieved-deals'} component={RecievedDeals} />
           <Route exact path={'/add-game'} component={AddGame} />
           <Route exact path={'/search-game'} component={SearchGame} />
+          <Route exact path={'/user-rating/:receivingUserId'} component={UserRating} />
+          <Route exact path={'/add-review/:receivingUserId'} component={AddReview} />
         </Router>
       </div>
     </UserProvider>

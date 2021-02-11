@@ -173,7 +173,6 @@ function UserProfile() {
                           editable={inputIsEditable}
                           updateField={updateUserProfile}
                         ></EditableFields>
-
                         <div>
                           {inputIsEditable === false ? (
                             <button
@@ -192,6 +191,7 @@ function UserProfile() {
                           )}
                         </div>
                       </div>
+                      <a href={`/user-rating/${value.userId}`}>See my reviews</a>
                     </div>
 
                     <div className="user-information">Short Description</div>
