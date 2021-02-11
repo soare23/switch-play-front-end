@@ -6,6 +6,7 @@ import axios from 'axios';
 function AddReview(props) {
   const value = useContext(UserContext);
   const userId = value.userId;
+  const [reviewAdded, setReviewAdded] = useState(false);
 
   let receivingUserId = props.match.params.receivingUserId;
 
@@ -46,6 +47,8 @@ function AddReview(props) {
         setReview(s);
         break;
       default:
+        s.starNumber = 0;
+        setReview(s);
         break;
     }
   };
@@ -53,75 +56,107 @@ function AddReview(props) {
   return (
     <div>
       <div
-        className="container"
-        style={{
-          margin: '50px',
-          padding: '50px',
-          backgroundColor: '#a5d5c8',
-          width: '400px',
-          borderRadius: '20px',
-        }}
+        className="success-message-container"
+        id="alert"
+        style={reviewAdded ? { display: 'flex' } : { display: 'none' }}
       >
-        <div className="row">
-          {/*REVIEW STARS*/}
-          <b style={{ marginTop: '6px', marginRight: '2.5px' }}>Rating : </b>
-          <ReactStars
-            count={5}
-            onChange={ratingChanged}
-            size={24}
-            activeColor="#ffd700"
-          />
-          <div style={{ marginTop: '6px', marginLeft: '10px' }}>{rating}</div>
-        </div>
-        {/*REVIEW TITLE*/}
-        <div style={{ marginTop: '25px' }}>
-          <b>Review title : </b>
-        </div>
-        <input
-          style={{ width: '291px' }}
-          type="text"
-          placeholder={'Mandatory'}
-          onChange={(e) => {
-            const s = { ...review };
-            s.title = e.target.value;
-            s.userWhoIsGivingName = value.firstName;
-            setReview(s);
-          }}
-        />
-        {/*REVIEW BODY*/}
-        <div style={{ marginTop: '25px' }}>
-          <b>Review : </b>
-        </div>
-        <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="5"
-          placeholder={'Describe your experience with the provider'}
-          onChange={(e) => {
-            const s = { ...review };
-            s.review = e.target.value;
-            setReview(s);
+        <p className="gamed-added-message">Review added!</p>
+      </div>
+      <div className="add-review-container">
+        <div
+          className="container"
+          style={{
+            margin: '50px',
+            padding: '50px',
+            width: '500px',
+            maxWidth: 'fit-content',
+            borderRadius: '20px',
+            textAlign: 'center',
           }}
         >
-          {' '}
-        </textarea>
-        {/*REVIEW SUBMIT BUTTON*/}
-        <div style={{ marginTop: '25px' }}>
-          <button
-            className="btn btn-outline-primary"
-            style={{ marginLeft: '5px' }}
-            onClick={(e) => {
-              e.preventDefault();
-              axios
-                .post(`/api/add-review/${receivingUserId}`, review)
-                .then(() => {
-                  alert('Success');
-                });
-            }}
-          >
-            Submit review
-          </button>
+          <div>
+            <div
+              className="row"
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              {/*REVIEW STARS*/}
+              <b style={{ marginTop: '6px', marginRight: '2.5px' }}>
+                Rating :{' '}
+              </b>
+              <ReactStars
+                count={5}
+                onChange={ratingChanged}
+                size={24}
+                activeColor="#8dbef2"
+              />
+              <div style={{ marginTop: '6px', marginLeft: '10px' }}>
+                {rating}
+              </div>
+            </div>
+            {/*REVIEW TITLE*/}
+            <div style={{ marginTop: '25px' }}>
+              <b>Review title : </b>
+            </div>
+            <input
+              style={{ width: '291px' }}
+              type="text"
+              placeholder={'Required'}
+              onChange={(e) => {
+                const s = { ...review };
+                s.title = e.target.value;
+                s.userWhoIsGivingName = value.firstName;
+                setReview(s);
+              }}
+            />
+            {/*REVIEW BODY*/}
+            <div style={{ marginTop: '25px' }}>
+              <b>Review : </b>
+            </div>
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="5"
+              placeholder={'Describe your experience with the provider'}
+              onChange={(e) => {
+                const s = { ...review };
+                s.review = e.target.value;
+                setReview(s);
+              }}
+            >
+              {' '}
+            </textarea>
+            {/*REVIEW SUBMIT BUTTON*/}
+            <div>
+              <button
+                className="btn btn-outline-primary"
+                style={{ marginRight: '10px' }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setReviewAdded(true);
+                  axios
+                    .post(`/api/add-review/${receivingUserId}`, review)
+                    .then(() => {
+                      setTimeout(() => {
+                        setReviewAdded(false);
+                      }, 1500);
+                      setTimeout(() => {
+                        window.history.back();
+                      }, 500);
+                    });
+                }}
+              >
+                Add review
+              </button>
+
+              <button
+                className="btn btn-outline-primary"
+                onClick={() => window.history.back()}
+              >
+                Back
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
