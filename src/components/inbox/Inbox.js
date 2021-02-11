@@ -6,7 +6,6 @@ export default function Inbox() {
     const value = useContext(UserContext);
     const userId = value.userId
     const [Inbox, setInbox] = useState({});
-    const [receivedMessages, setReceivedMessages] = useState([]);
     const [sentMessages, setSentMessages] = useState([]);
 
     useEffect(() => {
@@ -22,8 +21,8 @@ export default function Inbox() {
       })},[])
     return (
         <div>
-            <button onClick={()=>setSentMessages(Inbox.sentMessages)}> Sent </button>
-            <button onClick={()=>setSentMessages(Inbox.receivedMessages)}>Received</button>
+            <button onClick={()=>setSentMessages(Inbox.receivedMessages)}> Sent </button>
+            <button onClick={()=>setSentMessages(Inbox.sentMessages)}>Received</button>
         
         <div>
             <table className="table w-100">
