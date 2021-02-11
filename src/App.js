@@ -12,6 +12,7 @@ import { UserProvider } from './components/UserContext';
 import UserRating from './components/review/UserRating';
 import AddReview from './components/review/AddReview';
 import RecievedDeals from './components/RecievedDeals';
+import inbox from './components/inbox/Inbox';
 
 function App() {
   return (
@@ -36,6 +37,9 @@ function App() {
             path={'/add-review/:receivingUserId'}
             component={AddReview}
           />
+          <Route exact path={'/user-rating/:receivingUserId'} component={UserRating} />
+          <Route exact path={'/add-review/:receivingUserId'} component={AddReview} />
+          <Route exact path={'/inbox'} component={inbox} />
         </Router>
       </div>
     </UserProvider>

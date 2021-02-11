@@ -16,7 +16,6 @@ function Register(props) {
     town: '',
     country: '',
     console: '',
-    inbox: {},
     registrationDate: Date.now(),
     favouriteCategories: [
       {
