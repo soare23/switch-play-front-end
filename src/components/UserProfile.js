@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import '../UserProfile.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -191,7 +192,6 @@ function UserProfile() {
                           )}
                         </div>
                       </div>
-                      <a href={`/user-rating/${value.userId}`}>See my reviews</a>
                     </div>
 
                     <div className="user-information">Short Description</div>
@@ -209,10 +209,7 @@ function UserProfile() {
                         </Modal>
                       </div>
                       <div>
-                        <a href="#" title="Comments">
-                          Rating:
-                          <strong>10</strong>
-                        </a>
+                        <Link to={`/user-rating/${id}`}>See my reviews</Link>
                       </div>
                       <div>
                         <a href="#" title="Likes">
