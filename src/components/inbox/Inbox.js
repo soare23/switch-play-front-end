@@ -37,7 +37,7 @@ export default function Inbox() {
                 <tbody>
                 {sentMessages.map((res)=>{
                 return(
-                <tr>
+                <tr key={res.message_id}>
                     <td>{res.date}</td>
                     <td>{res.senderUserName}</td>
                     <td>{res.receiverUserName}</td>
