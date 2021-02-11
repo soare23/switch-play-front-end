@@ -69,7 +69,7 @@ function AddGame(props) {
         setTimeout(() => {
           setSelectedGame({});
           document.getElementById('alert').style.display = 'none';
-        }, 2000)
+        }, 1000)
       );
   };
 
