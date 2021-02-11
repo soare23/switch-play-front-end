@@ -29,7 +29,13 @@ function RecievedDeals(props) {
       </div>
       <div className="trade-offer-container">
         {recievedDeals.map((deal, index) => (
-          <div className="d-flex justify-content-center" key={index}>
+          <div
+            className="d-flex justify-content-center"
+            style={{
+              margin: 'auto',
+            }}
+            key={index}
+          >
             <div
               className="card h-100 game-result-card"
               style={{ width: '18rem', marginTop: '20px' }}
