@@ -22,6 +22,7 @@ function Register(props) {
         name: '',
       },
     ],
+    inbox : {}
   });
 
   useEffect(() => {
