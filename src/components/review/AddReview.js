@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import ReactStars from "react-rating-stars-component";
 import {UserContext} from "../UserContext";
 import axios from "axios";
@@ -13,7 +13,6 @@ function AddReview(props) {
     let receivingUserId = props.match.params.receivingUserId;
 
     const [rating, setRating] = useState("");
-
     const [review, setReview] = useState({
         title : "",
         starNumber : 0,
@@ -57,6 +56,7 @@ function AddReview(props) {
 
             <div className="container" style={{"margin" : "50px", "padding" : "50px", "backgroundColor" : "#a5d5c8", "width" : "400px", "borderRadius" : "20px"}}>
                 <div className="row">
+{/*REVIEW STARS*/}
                     <b style={{"marginTop" : "6px", "marginRight" : "2.5px"}}>Rating : </b>
                     <ReactStars
                         count={5}
@@ -66,7 +66,7 @@ function AddReview(props) {
                     />
                     <div style={{"marginTop" : "6px", "marginLeft" : "10px"}}>{rating}</div>
                 </div>
-
+{/*REVIEW TITLE*/}
                 <div style={{"marginTop" : "25px"}}><b>Review title : </b></div>
                 <input style={{"width" : "291px"}} type="text" placeholder={"Mandatory"} onChange={(e) => {
                     const s = {...review};
@@ -74,14 +74,14 @@ function AddReview(props) {
                     s.userWhoIsGivingName = value.firstName;
                     setReview(s);
                 }}/>
-
+{/*REVIEW BODY*/}
                 <div style={{"marginTop" : "25px"}}><b>Review : </b></div>
                 <textarea name="" id="" cols="30" rows="5" placeholder={"Describe your experience with the provider"} onChange={(e) => {
                     const s = {...review};
                     s.review = e.target.value;
                     setReview(s);
                 }}> </textarea>
-
+{/*REVIEW SUBMIT BUTTON*/}
                 <div style={{"marginTop" : "25px"}}>
                     <button className="btn btn-outline-primary" style={{"marginLeft" : "5px"}} onClick={(e) => {
                         e.preventDefault();

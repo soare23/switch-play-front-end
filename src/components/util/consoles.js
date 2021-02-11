@@ -1,5 +1,5 @@
 export const consoles = [
-    'PlayStation 5',
+ 'PlayStation 5',
  'Xbox One',
  'PlayStation 4',
  'Xbox Series S/X',
@@ -45,7 +45,7 @@ export const consoles = [
  'SEGA Master System',
  'Dreamcast',
  '3DO',
-'Jaguar',
-'Game Gear',
-'Neo Geo'
+ 'Jaguar',
+ 'Game Gear',
+ 'Neo Geo'
 ]
