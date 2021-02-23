@@ -1,10 +1,10 @@
 # Switch-Play Front-End
 
-Written in VSC
-Github for code management
-Front-end : ReactJS, HTML, CSS
-Data : https://github.com/soare23/switch-play-back-end and https://rawg.io/apidocs
-Project management tool : NPM
+Written in VSC<br>
+Github for code management<br>
+Front-end : ReactJS, HTML, CSS<br>
+Data : https://github.com/soare23/switch-play-back-end and https://rawg.io/apidocs<br>
+Project management tool : NPM<br>
 
 # Video showcase
 
