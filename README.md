@@ -1,3 +1,15 @@
+# Switch-Play Front-End
+
+Written in VSC
+Github for code management
+Front-end : ReactJS, HTML, CSS
+Data : https://github.com/soare23/switch-play-back-end and https://rawg.io/apidocs
+Project management tool : NPM
+
+# Video showcase
+
+[See the project here](https://streamable.com/406cg4 'Switch-Play Showcase')
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,4 +80,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# switch-play-frontend
