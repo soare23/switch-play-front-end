@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import GameCard from '../components/GameCard';
 import { UserContext } from './UserContext';
+import MessageSection from './inbox/MessageSection';
 
 export default function SearchGame() {
   const [display, setDisplay] = useState(true);
@@ -11,6 +12,10 @@ export default function SearchGame() {
   const [gamesList, setGamesList] = useState([]);
   const [offerId, setOfferId] = useState();
   const user = useContext(UserContext);
+  const [messageModal, setMessageModal]=useState(false);
+  const [userToSendMessage, setUserToSendMessage]=useState({id:'',
+    firstName:''
+  })
 
   function handleSearchInput(e) {
     const search_result = e.target.value;
@@ -129,6 +134,9 @@ export default function SearchGame() {
             openMakeAnOfferComponent={openMakeAnOfferComponent}
             showComponent={showComponent}
             offerId={offerId}
+            setMessageModal={setMessageModal}
+            UserToSendMessage={userToSendMessage}
+            setUserToSendMessage={setUserToSendMessage}
           ></GameCard>
         ) : (
           <h1 className="no-games-message">
@@ -136,6 +144,7 @@ export default function SearchGame() {
           </h1>
         )}
       </div>
+      {messageModal &&<MessageSection userToSendMessage={userToSendMessage} SetMessageModal={setMessageModal}></MessageSection>}
     </>
   );
 }
