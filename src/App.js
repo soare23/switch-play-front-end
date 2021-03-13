@@ -37,8 +37,6 @@ function App() {
             path={'/add-review/:receivingUserId'}
             component={AddReview}
           />
-          <Route exact path={'/user-rating/:receivingUserId'} component={UserRating} />
-          <Route exact path={'/add-review/:receivingUserId'} component={AddReview} />
           <Route exact path={'/inbox'} component={inbox} />
         </Router>
       </div>
