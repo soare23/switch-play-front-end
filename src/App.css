@@ -186,3 +186,23 @@ input {
   justify-content: center;
   align-items: center;
 }
+.review-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fffdfd;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.review-message-container {
+  color: rgb(155, 155, 155);
+  -webkit-text-stroke-width: 0.1px;
+  -webkit-text-stroke-color: rgb(80, 80, 80);
+}
+
+.add-review-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
