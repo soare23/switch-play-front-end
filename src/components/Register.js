@@ -7,6 +7,8 @@ function Register(props) {
   const [consoleList, setConsoleList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [exists, setExists] = useState(false);
+  const [verifyPassword, setVerifyPassword] = useState();
+  const [alert, setAlert] = useState(false);
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -22,7 +24,7 @@ function Register(props) {
         name: '',
       },
     ],
-    inbox : {}
+    inbox: {},
   });
 
   useEffect(() => {
@@ -46,16 +48,21 @@ function Register(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`/api/add-user/`, user)
-      .then(() => {
-        window.location.href = 'http://localhost:3000/login';
-      })
-      .catch((err) => {
-        if (err.response.status === 409) {
-          setExists(true);
-        }
-      });
+    if (user.password === verifyPassword) {
+      axios
+        .post(`/api/add-user/`, user)
+        .then(() => {
+          window.location.href = 'http://localhost:3000/login';
+        })
+        .catch((err) => {
+          if (err.response.status === 409) {
+            setExists(true);
+          }
+        });
+    } else {
+      setExists(true);
+      setAlert(true);
+    }
   };
 
   return (
@@ -73,22 +80,6 @@ function Register(props) {
             }}
           >
             <form action="" onSubmit={handleSubmit}>
-              <div>
-                {exists && (
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      backgroundColor: '#f8a6a6',
-                      marginTop: '50px',
-                      border: 'solid 1px #124686',
-                      color: '#660101',
-                    }}
-                  >
-                    <i>Email already used</i>
-                  </div>
-                )}
-              </div>
-
               <h1
                 style={{
                   marginTop: '15px',
@@ -98,8 +89,23 @@ function Register(props) {
                 User Registration
               </h1>
               {exists ? (
-                <div>
-                  <p>Email already in use</p>
+                <div
+                  style={{
+                    textAlign: 'center',
+                    display: 'flex',
+                    alignContent: 'center',
+                    backgroundColor: '#f8a6a6',
+                    marginTop: '50px',
+                    border: 'solid 1px #124686',
+                    borderRadius: '5px',
+                    color: '#660101',
+                  }}
+                >
+                  {alert ? (
+                    <p style={{ margin: 'auto' }}>Passwords do not match</p>
+                  ) : (
+                    <p style={{ margin: 'auto' }}>Email already used</p>
+                  )}
                 </div>
               ) : (
                 ''
@@ -260,6 +266,20 @@ function Register(props) {
                     const s = { ...user };
                     s.password = e.target.value;
                     setUser(s);
+                  }}
+                />
+              </div>
+              {/*USER PASSWORD 2*/}
+              <div>
+                <input
+                  type="password"
+                  name="password2"
+                  value={verifyPassword}
+                  required
+                  style={{ marginTop: '15px', width: '226px' }}
+                  placeholder="Verifiy password"
+                  onChange={(e) => {
+                    setVerifyPassword(e.target.value);
                   }}
                 />
               </div>
