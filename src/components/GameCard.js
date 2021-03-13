@@ -8,6 +8,9 @@ function GameCard({
   openMakeAnOfferComponent,
   showComponent,
   offerId,
+  setMessageModal,
+  UserToSendMessage,
+  setUserToSendMessage,
 }) {
   const [dealSent, setDealSent] = useState(false);
 
@@ -31,7 +34,7 @@ function GameCard({
   };
 
   return (
-    <div>
+    <>
       <div
         className="success-message-container"
         id="alert"
@@ -85,6 +88,18 @@ function GameCard({
                 >
                   Make an offer
                 </button>
+                <button
+                  className="btn btn-special"
+                  onClick={() => {
+                    const s = { ...UserToSendMessage };
+                    s.id = selectedGame.user.id;
+                    s.firstName = selectedGame.user.firstName;
+                    setUserToSendMessage(s);
+                    setMessageModal(true);
+                  }}
+                >
+                  Send message
+                </button>
               </div>
             </div>
           </div>
@@ -96,8 +111,7 @@ function GameCard({
           />
         ) : null}
       </div>
-    </div>
+    </>
   );
 }
-
 export default GameCard;
